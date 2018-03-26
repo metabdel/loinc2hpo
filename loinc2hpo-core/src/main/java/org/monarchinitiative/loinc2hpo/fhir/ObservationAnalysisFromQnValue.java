@@ -101,6 +101,10 @@ public class ObservationAnalysisFromQnValue implements ObservationAnalysis {
 
     private boolean sexMatch(Observation.ObservationReferenceRangeComponent component) {
 
+        patient.setGender(Enumerations.AdministrativeGender.FEMALE);
+
+
+
         return true;
     }
 

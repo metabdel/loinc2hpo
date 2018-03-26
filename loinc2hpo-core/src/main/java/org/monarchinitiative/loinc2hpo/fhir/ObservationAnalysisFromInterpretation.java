@@ -36,8 +36,18 @@ public class ObservationAnalysisFromInterpretation implements ObservationAnalysi
     }
 
 
+    /**
+     * This function checks whether the interpretation code has a manually annotated HPO term (it happens when the curator overwrites the default HPO term mapped from internal codes.
+     * @return
+     */
+    private HpoTermId4LoincTest getHPOfromManullyAnnotatedInterpretationCode() {
+        return null;
+    }
+
     @Override
     public HpoTermId4LoincTest getHPOforObservation() throws UnsupportedCodingSystemException, AmbiguousResultsFoundException, AnnotationNotFoundException, UnrecognizedCodeException {
+        //@TODO: call getHPOfromManullyAnnotatedInterpretationCode() first; abort is not null
+
         //here we use a map to store the results: since there could be more than one interpretation coding system,
         //we try them all and store the results in a map <external code, result in internal code>
         Map<Code, Code> results = new HashMap<>();
