@@ -16,7 +16,7 @@ import java.util.HashSet;
 import java.util.Map;
 
 /**
- * This class is responsible for analyzing a FHIR observation
+ * This class is responsible for analyzing a FHIR observation. It invokes one of the concrete classes that implement ObservationAnalysis interface.
  */
 public class FhirObservationAnalyzer {
     private static final Logger logger = LogManager.getLogger();
@@ -209,7 +209,8 @@ public class FhirObservationAnalyzer {
             try {
                 Code internalCode = CodeSystemConvertor.convertToInternalCode(interpretationCode);
                 LoincId loincId = getLoincIdOfObservation(); //get the loinc code from the observation
-                UniversalLoinc2HPOAnnotation annotationForLoinc = testmap.get(loincId); //get the annotation class for this loinc code
+                //get the annotation class for this loinc code
+                UniversalLoinc2HPOAnnotation annotationForLoinc = testmap.get(loincId);
                 if(annotationForLoinc == null) throw new AnnotationNotFoundException();
                 HpoTermId4LoincTest hpoId = annotationForLoinc.loincInterpretationToHPO(internalCode);
                 return new BasicLabTestResultInHPO(hpoId, null, "?");

@@ -96,6 +96,29 @@ public class FhirResourceRetriever {
     }
 
     /**
+     * This function parses a json file stored locally to an hapi-fhir Observation object
+     * @param filepath
+     * @return
+     */
+    public static Patient parseJsonFile2Patient(String filepath) {
+        Patient patient = null;
+        try {
+            File file = new File(filepath);
+            byte[] bytes = new byte[(int)file.length()];
+            FileInputStream fileInputStream = new FileInputStream(file);
+            fileInputStream.read(bytes);
+            //logger.debug(new String(bytes));
+            patient = (Patient) jsonParser.parseResource(new String(bytes));
+            fileInputStream.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (DataFormatException e) {
+            logger.error("Json file " + filepath + " is not a valid observation");
+        }
+        return patient;
+    }
+    /**
      * Retrieve a patient from the reference field of an observation
      * @param subject
      * @return
