@@ -16,6 +16,7 @@ import org.hl7.fhir.instance.model.api.IBaseReference;
 import org.hl7.fhir.instance.model.api.IIdType;
 import org.hl7.fhir.dstu3.model.Reference;
 import org.joda.time.DateTime;
+import org.joda.time.Days;
 import org.junit.Test;
 
 import javax.security.auth.Subject;
@@ -24,6 +25,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.*;
+
 
 import static org.junit.Assert.*;
 
@@ -267,7 +269,24 @@ public class ReferenceRangeAnalyzerTest {
     }
 
     @Test
+    public void testDuration() {
+        Calendar fromC = Calendar.getInstance();
+        fromC.setTimeZone(TimeZone.getDefault());
+        fromC.set(2016, Calendar.JUNE, 26, 4, 00, 00);
+        DateTimeType from = new DateTimeType(fromC.getTime());
+        Calendar nowC = Calendar.getInstance();
+        nowC.setTimeZone(TimeZone.getDefault());
+        nowC.set(2017, Calendar.JUNE, 26, 4, 00, 00);
+        DateTimeType now = new DateTimeType(nowC);
+        long duration = (long) ((now.getValue().getTime() - from.getValue().getTime())/(1000.0 * 60*60*24));
+        System.out.println("duration: " + duration);
+
+    }
+    @Test
     public void getAge() throws Exception {
+
+
+
     }
 
     @Test
@@ -284,6 +303,17 @@ public class ReferenceRangeAnalyzerTest {
 
     @Test
     public void getApplicableReferenceRange() throws Exception {
+    }
+
+    @Test
+    //needs Java EE
+    public void sendEmail() {
+        String to = "kingmanzhang@gmail.com";
+        String from = "najanajaking@gmail.com";
+        String host = "localhost";
+        Properties properties = System.getProperties();
+        properties.setProperty("mail.smtp.host", host);
+        //Session session =//
     }
 
 }
